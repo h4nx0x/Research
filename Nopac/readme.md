@@ -2,10 +2,12 @@
 
 `noPac` hay  `samaccountname spoofing` là tên gọi khi chain 2 lỗ hổng [CVE-2021-42278](https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2021-42278) và [CVE-2021-42287](https://support.microsoft.com/en-us/topic/kb5008380-authentication-updates-cve-2021-42287-9dafac11-e0d0-4cb8-959a-143bd0201041) lại với nhau để có thể leo thang đặc quyền từ domain user lên domain admin trong Active Directory. 
 - CVE-2021-42278 : Lỗ hổng cho phép kẻ tấn công giả mạo Domain Controller bằng cách sửa đổi thuộc tính sAMAccountName trên computer account. Trong AD, sAMAccountName là thuộc tính được sử dụng để xác định computer account name và thường được kết thúc bằng ký hiệu “$”. Tuy nhiên, người dùng có thể truy cập và chỉnh sửa thuộc tính này. Có thể sửa thủ công `sAMAccountName` bằng cách :
-	- Sử dụng công cụ ADSI Edit được tích hợp sẵn trên Windows.
-		![](img/6.PNG)
+Sử dụng công cụ ADSI Edit được tích hợp sẵn trên Windows.
 
-	- Sử dụng command với [Powermad](https://github.com/Kevin-Robertson/Powermad)
+![](img/6.PNG)
+
+Sử dụng command với [Powermad](https://github.com/Kevin-Robertson/Powermad)
+
 ```powershell
 Set-MachineAccountAttribute -MachineAccount TestSPN -Value "IDC1" -Attribute samaccountname -Verbose
 ```
@@ -125,21 +127,21 @@ python3 noPac.py hanx.local/nopac:'123@qaz' -dc-ip 192.168.160.100 -use-ldap -dc
 Việc khai thác noPac sẽ tạo ra các bản ghi nhật ký sau:
 - Sau khi tạo computer account, Event 4741 sẽ hiển thị thông tin chi tiết về user đã tạo tài khoản và thông tin về tài khoản mới được tạo.
 
-![](img/18.PNG)
+![](img/18.png)
 - Xóa SPN sẽ tạo ra Event 4742. Service principal names sẽ hiển thị dưới dạng `<value not set>` khi SPN bị xóa.
 
-![](img/19.PNG)
+![](img/19.png)
 
 - Đổi tên tài khoản máy sẽ tạo ra Event 4742 và 4781. Event 4781 nêu chi tiết tên tài khoản cũ và mới. Tên tài khoản cũ bao gồm $ và tên tài khoản mới thì không.
 
-![](img/20.PNG)
+![](img/20.png)
 - Request vé Kerberos TGT sẽ kích hoạt Event 4768 với sAMAccountName giả mạo (tài khoản máy không có đuôi $).
 
-![](img/21.PNG)
+![](img/21.png)
 
 - Domain Controller  ghi lại Event 4769 khi vé TGS được yêu cầu. Tên dịch vụ chứa $ ở cuối và tên tài khoản thì không.
 
-![](img/22.PNG)
+![](img/22.png)
 
 ## ## Mitigation
 
