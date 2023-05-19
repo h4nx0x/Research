@@ -1,11 +1,13 @@
 ## Tổng quan
 
 `noPac` hay  `samaccountname spoofing` là tên gọi khi chain 2 lỗ hổng [CVE-2021-42278](https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2021-42278) và [CVE-2021-42287](https://support.microsoft.com/en-us/topic/kb5008380-authentication-updates-cve-2021-42287-9dafac11-e0d0-4cb8-959a-143bd0201041) lại với nhau để có thể leo thang đặc quyền từ domain user lên domain admin trong Active Directory. 
-- CVE-2021-42278 : Lỗ hổng cho phép kẻ tấn công giả mạo Domain Controller bằng cách sửa đổi thuộc tính sAMAccountName trên computer account. Trong AD, sAMAccountName là thuộc tính được sử dụng để xác định computer account name và thường được kết thúc bằng ký hiệu “$”. Tuy nhiên, người dùng có thể truy cập và chỉnh sửa thuộc tính này. Có thể sửa thủ công `sAMAccountName` bằng cách :
-		- Sử dụng công cụ ADSI Edit được tích hợp sẵn trên Windows.
+### CVE-2021-42278 
+Lỗ hổng cho phép kẻ tấn công giả mạo Domain Controller bằng cách sửa đổi thuộc tính sAMAccountName trên computer account. Trong AD, sAMAccountName là thuộc tính được sử dụng để xác định computer account name và thường được kết thúc bằng ký hiệu “$”. Tuy nhiên, người dùng có thể truy cập và chỉnh sửa thuộc tính này. Có thể sửa thủ công `sAMAccountName` bằng cách :
+- Sử dụng công cụ ADSI Edit được tích hợp sẵn trên Windows.
 
 ![](img/6.PNG)
-		- Sử dụng command với [Powermad](https://github.com/Kevin-Robertson/Powermad)
+
+- Sử dụng command với [Powermad](https://github.com/Kevin-Robertson/Powermad)
 	
 ```powershell
 Set-MachineAccountAttribute -MachineAccount TestSPN -Value "IDC1" -Attribute samaccountname -Verbose
@@ -16,7 +18,8 @@ Set-MachineAccountAttribute -MachineAccount TestSPN -Value "IDC1" -Attribute sam
 *Nếu dùng module powershell mặc định thì nó vẫn sẽ tự động thêm `$` vào cuối*
 ![](img/7.PNG)
 
-- **CVE-2021-42287** :  Lỗ hổng bypass PAC trong quá trình xử lý KDC. Khi request vé TGS, nếu computer name account được request không được tìm thấy, KDC sẽ tự động thêm ký tự "$" vào cuối tên để tìm tài khoản phù hợp nhất.
+### CVE-2021-42287 
+Lỗ hổng bypass PAC trong quá trình xử lý KDC. Khi request vé TGS, nếu computer name account được request không được tìm thấy, KDC sẽ tự động thêm ký tự "$" vào cuối tên để tìm tài khoản phù hợp nhất.
 
 ## Điều kiện khai thác
 Để khai thác thành công noPac, yêu cầu các điều kiện sau:
