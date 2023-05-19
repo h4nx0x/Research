@@ -1,6 +1,6 @@
 ## Tổng quan
 
-`noPac` hay  `samaccountname spoofing` là tên gọi khi chain 2 lỗ hổng [CVE-2021-42278](https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2021-42278) và [CVE-2021-42287](https://support.microsoft.com/en-us/topic/kb5008380-authentication-updates-cve-2021-42287-9dafac11-e0d0-4cb8-959a-143bd0201041) lại với nhau để có thể leo thang đặc quyền từ domain user lên domain admin trong Active Directory. 
+**noPac** hay  **samaccountname spoofing** là tên gọi khi chain 2 lỗ hổng [CVE-2021-42278](https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2021-42278) và [CVE-2021-42287](https://support.microsoft.com/en-us/topic/kb5008380-authentication-updates-cve-2021-42287-9dafac11-e0d0-4cb8-959a-143bd0201041) lại với nhau để có thể leo thang đặc quyền từ domain user lên domain admin trong Active Directory. 
 ### CVE-2021-42278 
 Lỗ hổng cho phép kẻ tấn công giả mạo Domain Controller bằng cách sửa đổi thuộc tính sAMAccountName trên computer account. Trong AD, sAMAccountName là thuộc tính được sử dụng để xác định computer account name và thường được kết thúc bằng ký hiệu “$”. Tuy nhiên, người dùng có thể truy cập và chỉnh sửa thuộc tính này. Có thể sửa thủ công `sAMAccountName` bằng cách :
 - Sử dụng công cụ ADSI Edit được tích hợp sẵn trên Windows.
@@ -145,7 +145,7 @@ Việc khai thác noPac sẽ tạo ra các bản ghi nhật ký sau:
 
 ![](img/22.png)
 
-## ## Mitigation
+## Mitigation
 
 Cách tốt nhất để phòng chống noPac là cập nhật các phiên bản mới nhất của Windows hoặc cập nhật thủ công bản vá KB5008602 hoặc KB5008380. Tuy nhiên trong  những hệ thống lớn gồm nhiều dịch vụ liên kết và chạy song song thì việc cập nhật ngay lập tức rất khó để không ảnh hưởng đến các dịch vụ khác và cần lên kế hoạch rõ ràng. Do đó có thể khắc phục tạm thời noPac bằng cách:
 - Cấu hình giá trị của thuộc tính ms-ds-machineaccountquota bằng 0, giúp ngăn chặn các tài khoản đặc quyền thấp  có thể tạo machine accounts.
