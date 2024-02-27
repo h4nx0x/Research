@@ -25,7 +25,7 @@ Lỗ hổng bypass PAC trong quá trình xử lý KDC. Khi request vé TGS, nế
 Để khai thác thành công noPac, yêu cầu các điều kiện sau:
 - Domain Controller chưa cập nhật bản vá KB5008380 hoặc KB5008602.
 - Tài khoản Domain User hợp lệ
-- Tài khoản Domain User được cấp quyền SeMachineAccountPrivilege (*SeMachineAccountPrivilege là một quyền trong hệ thống Windows cho phép người dùng có thể tạo mới, xoá, thay đổi thông tin tài khoản, cũng như thực hiện các hoạt động quản lý khác liên quan đến computer account trong domain*).
+- Tài khoản Domain User được cấp quyền SeMachineAccountPrivilege 
 - Thuộc tính ms-ds-machineaccountquota có giá trị lớn hơn 0. (*ms-ds-machineaccountquota là một thuộc tính của Domain Controller được sử dụng để giới hạn số lượng computer account mà một domain user hoặc một group có thể tạo ra, mặc định là 10*).
 ![](img/9.png)
 

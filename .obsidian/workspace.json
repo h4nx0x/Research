@@ -26,7 +26,7 @@
               "type": "markdown",
               "state": {
                 "file": "Nopac/readme.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -169,6 +169,7 @@
   },
   "active": "39ba90c1bae8ca87",
   "lastOpenFiles": [
+    "Nopac/~$nopac.pptx",
     "Nopac/nopac.pptx",
     "nopac.pptx",
     "Nopac/img/22.png",
